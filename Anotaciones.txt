@@ -1,0 +1,2 @@
+1. Ingresamos al package.json y configuramos los script para arrancar el servidor con npm run dev y para que el servidor se reinicie solo si hacemos algun cambio, por ejemplo "dev": "nodemon server/index.js", esto solo si hemos instalado nodemon.
+2. Para usar impory export configuramos tambien el package.json le agregamos "type":module
