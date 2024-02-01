@@ -1,29 +1,65 @@
 // Importamos los componentes que necesitamos para el formulario
 import { Formik, Form } from "formik";
-// Importamos nuestra funcion para mandar nuestro formulario al backend
-import { createTaskRequest } from "../Api/TaskApi";
+import { useTask } from "../Context/TaskProvider";
+
+// Importamos useParams
+import { useParams, useNavigate } from "react-router";
+import { useEffect, useState } from "react";
 
 export const TaskForm = () => {
+  // Estado para guardar o cargar la tarea
+  const [taskForm, setTaskForm] = useState({ title: "", description: "" });
+
+  // Utilizamos la función useTask para crear una nueva Tarea
+  const { createTask, getTask, updateTask } = useTask();
+
+  // Guardamos en una constante a useParams
+  const params = useParams();
+
+  // Guardamos en una constante a useNavigate
+  const navigate = useNavigate();
+
+  // Creamos una funcion para traer los datos del backend al querer editar una tarea
+  const getDataUpdate = async () => {
+    if (params.id) {
+      const task = await getTask(params.id);
+      setTaskForm({
+        title: task.title,
+        description: task.description,
+      });
+    }
+  };
+
+  // Ejecutamos la función de arriba cuando se renderiza el componente
+  useEffect(() => {
+    getDataUpdate();
+  }, []);
+
   return (
     <>
+      <h1 className="">{params.id ? "Editar tarea" : "Crear tarea"}</h1>
+
       <Formik
         // Inicialimos los valores del formulario
-        initialValues={{
-          title: "",
-          description: "",
-        }}
+        initialValues={taskForm}
+        // Permitimos el reinicio de los campos del formulario
+        enableReinitialize={true}
         // Funcion que se ejecuta cuando enviamos el formulario en bloque trycatch
-        onSubmit={async (values, actions) => {
-          try {
-            // Guardamos nuestra peticion en una constante
-            const response = await createTaskRequest(values);
-            // Mostramos el estado de esta peticion en consola
-            console.log(response);
-            // Limpiamos los campos
-            actions.resetForm();
-          } catch (error) {
-            console.log(error);
+        onSubmit={async (values) => {
+          // Condicinamos si se actuliza o se crea un nuevo task
+          if (params.id) {
+            await updateTask(params.id, values);
+            navigate("/");
+          } else {
+            await createTask(values);
+            navigate("/");
           }
+
+          // Limpiamos los campos
+          setTaskForm({
+            title: "",
+            description: "",
+          });
         }}
       >
         {({ handleChange, handleSubmit, values, isSubmitting }) => (
@@ -47,7 +83,7 @@ export const TaskForm = () => {
             />
 
             <button type="submit" disabled={isSubmitting}>
-              {isSubmitting ? "Cargando..." : "Crear Tarea"}
+              {params.id ? "Actualizar Tarea" : "Crear Nueva Tarea"}
             </button>
           </Form>
         )}
