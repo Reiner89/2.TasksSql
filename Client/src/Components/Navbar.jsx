@@ -5,13 +5,13 @@ export const Navbar = () => {
     <>
       <div className="relative bg-zinc-700 flex flex-col">
         <div className="titulo flex justify-center text-white text-3xl">
-          <h1 className="">React MySQL</h1>
+          <h1 className="text-white">React MySQL</h1>
         </div>
         <ul className="relative flex justify-between w-[50%]">
-          <li className="">
+          <li className="text-white">
             <Link to="/">Home</Link>
           </li>
-          <li className="">
+          <li className="text-white">
             <Link to="/new">Create Task</Link>
           </li>
         </ul>

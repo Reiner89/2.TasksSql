@@ -12,14 +12,14 @@ export const TaskPage = () => {
 
   // Funcion para mostrar mensaje si aun no hay tareas
   const renderMain = () => {
-    if (tasks.length === 0) return <h1>¡No has creado ninguna tarea!</h1>;
+    if (tasks.length === 0) return <h1 className= "text-white">¡No has creado ninguna tarea!</h1>;
 
     return tasks.map((task) => <TaskCard task={task} key={task.id} />);
   };
 
   return (
     <>
-      <h1 className="">Lista de Todas las Tareas</h1>
+      <h1 className="text-white">Lista de Todas las Tareas</h1>
       {renderMain()}
     </>
   );

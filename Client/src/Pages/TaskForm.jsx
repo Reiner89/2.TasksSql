@@ -37,7 +37,9 @@ export const TaskForm = () => {
 
   return (
     <>
-      <h1 className="">{params.id ? "Editar tarea" : "Crear tarea"}</h1>
+      <h1 className="text-white">
+        {params.id ? "Editar tarea" : "Crear tarea"}
+      </h1>
 
       <Formik
         // Inicialimos los valores del formulario
@@ -64,7 +66,7 @@ export const TaskForm = () => {
       >
         {({ handleChange, handleSubmit, values, isSubmitting }) => (
           <Form onSubmit={handleSubmit}>
-            <label>Title</label>
+            <label className="text-white">Title:</label>
             <input
               type="text"
               name="title"
@@ -73,7 +75,7 @@ export const TaskForm = () => {
               value={values.title}
             />
 
-            <label>Description</label>
+            <label className="text-white">Description:</label>
             <textarea
               name="description"
               rows="3"
@@ -82,7 +84,11 @@ export const TaskForm = () => {
               value={values.description}
             />
 
-            <button type="submit" disabled={isSubmitting}>
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="text-white px-2 py-2 mx-4 bg-blue-500 rounded-2xl"
+            >
               {params.id ? "Actualizar Tarea" : "Crear Nueva Tarea"}
             </button>
           </Form>

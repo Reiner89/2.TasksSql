@@ -15,10 +15,10 @@ export const TaskCard = ({ task }) => {
 
   return (
     <div className="relative w-full flex flex-col">
-      <h2 className="">{task.title}</h2>
-      <p className="">{task.description}</p>
-      <p className="">{task.done === 1 ? "Hecha" : "Pendiente"}</p>
-      <p className="">{task.createAt}</p>
+      <h2 className="text-white">{task.title}</h2>
+      <p className="text-white">{task.description}</p>
+      <p className="text-white">{task.done === 1 ? "Hecha" : "Pendiente"}</p>
+      <p className="text-white">{task.createAt}</p>
       <div className="relative flex">
         <button
           type="button"
